@@ -7,10 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletResponse;
-
 @RestController
 public class LoginController {
     @Autowired
@@ -19,8 +15,8 @@ public class LoginController {
     /**
      * LoginController 负责Login方面的URL引导
      *
-     * @param UserID       UserID
-     * @param UserPassword UserPassword
+     * @param UserID       用户ID，用于RBAC
+     * @param UserPassword 用户密码，用于RBAC
      * @return LoginResult: {
      * "Finish": String,
      * "LoginType": String,
