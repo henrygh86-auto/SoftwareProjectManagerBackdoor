@@ -7,11 +7,9 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 @Data
-public class LoginResult {
-    private String Finish;
-    private String LoginType;
-    private String UserName;
-    private int TeamID;
-    private String TeamName;
-    private String RoleName;
+public class TodoList {
+    private int TodoListID;
+    private int UserID;
+    private String TodoThings;
+    private int FinishState;
 }

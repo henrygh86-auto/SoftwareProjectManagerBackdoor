@@ -8,9 +8,13 @@ import cn.edu.xjtu.stu.orangesoft.backdoor.service.CommunicationService;
 import cn.edu.xjtu.stu.orangesoft.backdoor.service.RBACService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin
 public class CommunicationController {
     @Autowired
     CommunicationService communicationService;
@@ -29,10 +33,10 @@ public class CommunicationController {
      * "resultInfo": String
      * } else return List[String]
      */
-    @GetMapping(value = "/communication", produces = "application/json;charset=UTF-8")
-    public String GetCommunication(@CookieValue(name = "UserID") Integer UserID,
-                                   @CookieValue(name = "UserPassword") String UserPassword,
-                                   @RequestParam(name = "TeamID") Integer TeamID) {
+    @PostMapping(value = "/get/communication", produces = "application/json;charset=UTF-8")
+    public String GetCommunication(@RequestParam("UserID") Integer UserID,
+                                   @RequestParam("UserPassword") String UserPassword,
+                                   @RequestParam("TeamID") Integer TeamID) {
         Objects objects = DIUtil.getBean(Objects.class);
         Operation operation = DIUtil.getBean(Operation.class);
         objects.setObjectName("communication");
@@ -59,11 +63,11 @@ public class CommunicationController {
      * }
      */
     @PostMapping(value = "/communication", produces = "application/json;charset=UTF-8")
-    public String PostCommunication(@CookieValue(name = "UserID") Integer UserID,
-                                    @CookieValue(name = "UserPassword") String UserPassword,
-                                    @RequestParam(name = "TeamID") Integer TeamID,
-                                    @RequestParam(name = "Context") String Context,
-                                    @RequestParam(name = "FileID") Integer FileID) {
+    public String PostCommunication(@RequestParam("UserID") Integer UserID,
+                                    @RequestParam("UserPassword") String UserPassword,
+                                    @RequestParam("TeamID") Integer TeamID,
+                                    @RequestParam("Context") String Context,
+                                    @RequestParam("FileID") Integer FileID) {
         Objects objects = DIUtil.getBean(Objects.class);
         Operation operation = DIUtil.getBean(Operation.class);
         ResultInfo resultInfo;

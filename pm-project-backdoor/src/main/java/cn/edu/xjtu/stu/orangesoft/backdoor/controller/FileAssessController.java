@@ -9,9 +9,13 @@ import cn.edu.xjtu.stu.orangesoft.backdoor.service.FileAssessService;
 import cn.edu.xjtu.stu.orangesoft.backdoor.service.RBACService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin
 public class FileAssessController {
     @Autowired
     FileAssessService fileAssessService;
@@ -35,10 +39,10 @@ public class FileAssessController {
      * "AssessTime": String
      * }
      */
-    @GetMapping(value = "/fileAssess", produces = "application/json;charset=UTF-8")
-    public String FindFileAssessByFileID(@RequestParam(name = "FileID") Integer fileID,
-                                         @CookieValue(value = "UserID", defaultValue = "0") Integer UserID,
-                                         @CookieValue(value = "UserPassword", defaultValue = "") String UserPassword) {
+    @PostMapping(value = "/get/fileAssess", produces = "application/json;charset=UTF-8")
+    public String FindFileAssessByFileID(@RequestParam("FileID") Integer fileID,
+                                         @RequestParam("UserID") Integer UserID,
+                                         @RequestParam("UserPassword") String UserPassword) {
         Operation operation = DIUtil.getBean(Operation.class);
         Objects objects = DIUtil.getBean(Objects.class);
         ResultInfo resultInfo = DIUtil.getBean(ResultInfo.class);
@@ -69,10 +73,10 @@ public class FileAssessController {
      * }
      */
     @PostMapping(value = "/fileAssess", produces = "application/json;charset=UTF-8")
-    public String BuildNewFileAssess(@CookieValue(value = "UserID", defaultValue = "0") Integer UserID,
-                                     @CookieValue(value = "UserPassword", defaultValue = "") String UserPassword,
-                                     @RequestParam(name = "Assess") String assess,
-                                     @RequestParam(name = "fileInfo") FileInfo fileInfo) {
+    public String BuildNewFileAssess(@RequestParam("UserID") Integer UserID,
+                                     @RequestParam("UserPassword") String UserPassword,
+                                     @RequestParam("Assess") String assess,
+                                     @RequestParam("fileInfo") FileInfo fileInfo) {
         Operation operation = DIUtil.getBean(Operation.class);
         Objects objects = DIUtil.getBean(Objects.class);
         ResultInfo resultInfo = DIUtil.getBean(ResultInfo.class);

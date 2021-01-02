@@ -8,9 +8,13 @@ import cn.edu.xjtu.stu.orangesoft.backdoor.service.ProjectService;
 import cn.edu.xjtu.stu.orangesoft.backdoor.service.RBACService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin
 public class ProjectController {
     @Autowired
     ProjectService projectService;
@@ -30,9 +34,9 @@ public class ProjectController {
      * List[Project]
      * }
      */
-    @GetMapping(value = "/projects", produces = "application/json;charset=UTF-8")
-    public String FindAllProjects(@CookieValue(value = "UserID", defaultValue = "0") String UserID,
-                                  @CookieValue(value = "UserPassword", defaultValue = "") String UserPassword) {
+    @PostMapping(value = "/get/projects", produces = "application/json;charset=UTF-8")
+    public String FindAllProjects(@RequestParam(value = "UserID") String UserID,
+                                  @RequestParam(value = "UserPassword") String UserPassword) {
         Operation operation = DIUtil.getBean(Operation.class);
         Objects objects = DIUtil.getBean(Objects.class);
         ResultInfo resultInfo = DIUtil.getBean(ResultInfo.class);
@@ -62,10 +66,10 @@ public class ProjectController {
      * } else return
      * List[ProjectAssignment]
      */
-    @GetMapping(value = "/projectAssignment/", produces = "application/json;charset=UTF-8")
-    public String FindTeamByProject(@RequestParam(name = "ProjectID") Integer ProjectID,
-                                    @CookieValue(value = "UserID", defaultValue = "0") String UserID,
-                                    @CookieValue(value = "UserPassword", defaultValue = "") String UserPassword) {
+    @PostMapping(value = "/get/projectAssignment/", produces = "application/json;charset=UTF-8")
+    public String FindTeamByProject(@RequestParam("ProjectID") Integer ProjectID,
+                                    @RequestParam("UserID") String UserID,
+                                    @RequestParam("UserPassword") String UserPassword) {
         Operation operation = DIUtil.getBean(Operation.class);
         Objects objects = DIUtil.getBean(Objects.class);
         ResultInfo resultInfo = DIUtil.getBean(ResultInfo.class);
@@ -97,9 +101,9 @@ public class ProjectController {
      * "ProjectDescription": String
      * }
      */
-    @GetMapping(value = "/project", produces = "application/json;charset=UTF-8")
-    public String FindProjectByUser(@RequestParam(name = "UserID") Integer UserID,
-                                    @CookieValue(value = "UserPassword", defaultValue = "") String UserPassword) {
+    @PostMapping(value = "/get/project", produces = "application/json;charset=UTF-8")
+    public String FindProjectByUser(@RequestParam("UserID") Integer UserID,
+                                    @RequestParam("UserPassword") String UserPassword) {
         Operation operation = DIUtil.getBean(Operation.class);
         Objects objects = DIUtil.getBean(Objects.class);
         ResultInfo resultInfo = DIUtil.getBean(ResultInfo.class);
@@ -130,10 +134,10 @@ public class ProjectController {
      * }
      */
     @PostMapping(value = "/project", produces = "application/json;charset=UTF-8")
-    public String BuildNewProject(@RequestParam(value = "UserID", defaultValue = "0") String UserID,
-                                  @RequestParam(value = "UserPassword", defaultValue = "") String UserPassword,
-                                  @RequestParam(name = "ProjectName") String ProjectName,
-                                  @RequestParam(name = "Description") String Description) {
+    public String BuildNewProject(@RequestParam("UserID") String UserID,
+                                  @RequestParam("UserPassword") String UserPassword,
+                                  @RequestParam("ProjectName") String ProjectName,
+                                  @RequestParam("Description") String Description) {
         Operation operation = DIUtil.getBean(Operation.class);
         Objects objects = DIUtil.getBean(Objects.class);
         ResultInfo resultInfo = DIUtil.getBean(ResultInfo.class);
@@ -160,11 +164,11 @@ public class ProjectController {
      * }
      */
     @PostMapping(value = "/projectAssignment", produces = "application/json;charset=UTF-8")
-    public String AssignProjectAssignment(@RequestParam(value = "UserID", defaultValue = "0") String UserID,
-                                          @RequestParam(value = "UserPassword", defaultValue = "") String UserPassword,
-                                          @RequestParam(value = "ProjectID") Integer ProjectID,
-                                          @RequestParam(value = "TeamID") Integer TeamID,
-                                          @RequestParam(value = "DeadLine") String DeadLine) {
+    public String AssignProjectAssignment(@RequestParam("UserID") String UserID,
+                                          @RequestParam("UserPassword") String UserPassword,
+                                          @RequestParam("ProjectID") Integer ProjectID,
+                                          @RequestParam("TeamID") Integer TeamID,
+                                          @RequestParam("DeadLine") String DeadLine) {
         Operation operation = DIUtil.getBean(Operation.class);
         Objects objects = DIUtil.getBean(Objects.class);
         ResultInfo resultInfo = DIUtil.getBean(ResultInfo.class);

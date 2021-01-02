@@ -3,11 +3,13 @@ package cn.edu.xjtu.stu.orangesoft.backdoor.controller;
 import cn.edu.xjtu.stu.orangesoft.backdoor.pojo.LoginResult;
 import cn.edu.xjtu.stu.orangesoft.backdoor.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin
 public class LoginController {
     @Autowired
     LoginService loginService;
@@ -26,8 +28,8 @@ public class LoginController {
      * }
      */
     @PostMapping(value = "/login", produces = "application/json;charset=UTF-8")
-    public LoginResult login(@RequestParam(name = "UserID") Integer UserID,
-                             @RequestParam(name = "UserPassword") String UserPassword) {
-        return loginService.login(UserID, UserPassword);
+    public LoginResult login(@RequestParam("UserID") String UserID,
+                             @RequestParam("UserPassword") String UserPassword) {
+        return loginService.login(Integer.valueOf(UserID), UserPassword);
     }
 }
