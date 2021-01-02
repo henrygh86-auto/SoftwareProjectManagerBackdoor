@@ -4,7 +4,6 @@ import cn.edu.xjtu.stu.orangesoft.backdoor.core.DIUtil;
 import cn.edu.xjtu.stu.orangesoft.backdoor.mapper.TodoListMapper;
 import cn.edu.xjtu.stu.orangesoft.backdoor.pojo.ResultInfo;
 import cn.edu.xjtu.stu.orangesoft.backdoor.pojo.TodoList;
-import com.google.gson.JsonElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
